@@ -16,7 +16,7 @@ plt.show()
 # initialise parameters
 w_init = 0.0
 b_init = 0.0
-iterations = 100000
+iterations = 10000
 
 # set the learning rate
 tmp_alpha = 0.02
