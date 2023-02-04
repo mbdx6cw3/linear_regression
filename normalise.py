@@ -15,3 +15,13 @@ def z_score(x):
     sigma = np.std(x, axis=0)
     x_norm = (x - mu) / sigma
     return x_norm, mu, sigma
+
+def skl(x):
+    """
+    computes  X, zcore normalized by column using scikit-learn
+    """
+    from sklearn.preprocessing import StandardScaler
+    scaler = StandardScaler()
+    x_norm = scaler.fit_transform(x)
+    return x_norm
+

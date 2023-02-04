@@ -94,3 +94,12 @@ def compute_gradient(x, y, w, b):
     dj_db = dj_db / m
 
     return dj_dw, dj_db
+
+def skl(x, y, n):
+    from sklearn.linear_model import SGDRegressor
+    sgdr = SGDRegressor(max_iter=n)
+    sgdr.fit(x, y)
+    w = sgdr.coef_[0]
+    b = sgdr.intercept_[0]
+    return w, b
+
