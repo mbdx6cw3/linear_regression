@@ -34,7 +34,7 @@ x_norm, mu_x, sigma_x = normalise.z_score(x_train)
 
 w_norm, b_norm, J_hist, p_hist = regression.gradient_descent(
     x_norm, y_train, w_init, b_init, tmp_alpha, iterations)
-print(f"(w,b) found by gradient descent: ({w_norm:8.4f},{b_norm:8.4f})")
+print(f"Normalized (w,b) found by gradient descent: ({w_norm:8.4f},{b_norm:8.4f})")
 
 plt.scatter(x_norm, y_train, marker="x", c="r")
 plt.plot(x_norm, w_norm*x_norm+b_norm)

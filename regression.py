@@ -24,6 +24,7 @@ def gradient_descent(x, y, w_init, b_init, alpha, num_iters):
     b = b_init
     w = w_init
 
+    cost_converge = 1e-12
     for i in range(num_iters):
         # Calculate the gradient and update the parameters using gradient_function
         dj_dw, dj_db = compute_gradient(x, y, w, b)
@@ -37,11 +38,14 @@ def gradient_descent(x, y, w_init, b_init, alpha, num_iters):
             j_history.append(compute_cost(x, y, w, b))
             p_history.append([w, b])
         # Print cost every at intervals 10 times or as many iterations if < 10
-        if i % math.ceil(num_iters / 100) == 0:
+        if i % math.ceil(num_iters / 1000) == 0:
             print(f"Iteration {i:4}: Cost {j_history[-1]:0.8e} ",
                   f"dj_dw: {dj_dw: 0.3e}, dj_db: {dj_db: 0.3e}  ",
                   f"w: {w: 0.3e}, b:{b: 0.5e}")
-        # TODO: convergence check here
+        if i > 0:
+            if abs(j_history[-1] - j_history[-2]) < cost_converge:
+                print(f"Cost converged after{i:4} steps.")
+                break
     return w, b, j_history, p_history  # return w and J,w history for graphing
 
 
