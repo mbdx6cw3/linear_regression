@@ -2,12 +2,17 @@
 import load_training
 import regression
 import matplotlib.pyplot as plt
-file_name = "net_liquidity.xlsx"
-x_train, y_train = load_training.load_from_xl(file_name)
+
+# TODO: request user input to determine input data type (e.g. .txt file, .xlsx file)
+# TODO: adapt code so that it only includes required number of features
+
+file_name = input("Enter the name of the file containing the dataset: ")
+n_feature = int(input("Enter the number of features to use for training: "))
+x_train, y_train = load_training.load_from_xl(file_name, n_feature)
 plt.scatter(x_train,y_train,marker="x",c="r")
-plt.ylabel("S&P500 Price ($)")
-plt.xlabel("Net Liquidity ($tn)")
-plt.title("Net Liquidity Model")
+plt.ylabel("y")
+plt.xlabel("x")
+plt.title("Linear Regression")
 plt.show()
 
 #x_train = np.array([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0])   #features
@@ -20,6 +25,8 @@ iterations = 10000
 
 # set the learning rate
 tmp_alpha = 0.02
+
+# TODO: request user input to request whether to calculate by scikit learn
 
 # TODO: implement Z-score normalisation
 #mu_x = np.mean(x_train, axis=0)

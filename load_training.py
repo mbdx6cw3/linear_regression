@@ -1,4 +1,4 @@
-def load_from_xl(file_name):
+def load_from_xl(file_name, n_feature):
     import numpy as np
     import openpyxl as xl
     print("Loading input training data from excel spreadsheet...")
