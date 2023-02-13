@@ -95,11 +95,15 @@ def compute_gradient(x, y, w, b):
 
     return dj_dw, dj_db
 
-def skl(x, y, n):
+def skl(x, y, tmp_alpha, n):
     from sklearn.linear_model import SGDRegressor
-    sgdr = SGDRegressor(max_iter=n)
+    sgdr = SGDRegressor(max_iter=n, alpha=tmp_alpha, learning_rate='optimal')
     sgdr.fit(x, y)
     w = sgdr.coef_[0]
     b = sgdr.intercept_[0]
     return w, b
+
+# def tf(x, y, n):
+  #  import tensorflow as tf
+
 

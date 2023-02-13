@@ -24,7 +24,7 @@ x_train, y_train = load_training.load_from_xl(file_name, n_feature)
 plt.scatter(x_train, y_train, marker="x", c="r")
 plt.ylabel("y")
 plt.xlabel("x")
-plt.title("Linear Regression")
+plt.title("Training Data")
 plt.show()
 
 # initialise parameters
@@ -41,7 +41,7 @@ if reg_tool:
     # reshape to 2D array TODO: may need to also do this for multiple linear regression
     x_train = x_train.reshape(-1, 1)
     x_norm = normalise.skl(x_train)
-    w_norm, b_norm = regression.skl(x_norm, y_train, max_iter)
+    w_norm, b_norm = regression.skl(x_norm, y_train, tmp_alpha, max_iter)
 else:
     x_norm, mu_x, sigma_x = normalise.z_score(x_train)
     w_norm, b_norm, J_hist, p_hist = regression.gradient_descent(
