@@ -3,6 +3,7 @@ import load_training
 import matplotlib.pyplot as plt
 import regression
 import normalise
+import time
 
 # TODO: request user input to determine input data type (e.g. .txt file, .xlsx file)
 # TODO: adapt code so that it can deal with required number of features
@@ -34,9 +35,8 @@ tmp_alpha = 0.1  # set the learning rate
 w_norm = 0.0
 b_norm = 0.0
 
-# TODO: request user input to request whether to calculate by scikit learn
-
 # normalise features
+tic = time.perf_counter()
 if reg_tool:
     # reshape to 2D array TODO: may need to also do this for multiple linear regression
     x_train = x_train.reshape(-1, 1)
@@ -46,6 +46,8 @@ else:
     x_norm, mu_x, sigma_x = normalise.z_score(x_train)
     w_norm, b_norm, J_hist, p_hist = regression.gradient_descent(
         x_norm, y_train, w_init, b_init, tmp_alpha, max_iter)
+toc = time.perf_counter()
+print(f"Time taken to do linear regression computation: {toc - tic:0.4f} seconds")
 
 print(f"Normalized (w,b) found by gradient descent: ({w_norm:8.4f}, {b_norm:8.4f})")
 
