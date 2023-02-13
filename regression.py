@@ -103,7 +103,18 @@ def skl(x, y, tmp_alpha, n):
     b = sgdr.intercept_[0]
     return w, b
 
-# def tf(x, y, n):
-  #  import tensorflow as tf
-
-
+def tf(x, y, tmp_alpha, n):
+    from keras.layers import Dense
+    from keras.models import Sequential
+    import numpy as np
+    # defined a network with a single linear layer
+    linear_layer = Sequential([Dense(1,input_dim=1,activation="linear")])
+    # reshape np arrays to tensors for Tf
+    X = np.reshape(x, (len(x),1))
+    Y = np.reshape(y, (len(y),1))
+    linear_layer.compile(loss="mse",optimizer="Adam",metrics=["mae"])
+    linear_layer.fit(X[:,0], Y[:,0], epochs=10000,verbose=2)
+    w = linear_layer.layers[0].get_weights()[0][0]
+    b = linear_layer.layers[0].get_weights()[1]
+    print(w,b)
+    return w, b

@@ -6,17 +6,12 @@ import normalise
 import time
 
 # TODO: request user input to determine input data type (e.g. .txt file, .xlsx file)
+# np.genfromtxt?
 # TODO: adapt code so that it can deal with required number of features
 # TODO: add exceptions for user input here
 file_name = input("Enter the path to the file containing the dataset: ")
 n_feature = int(input("Enter the number of features to use for training: "))
-reg_tool = input("Use scikit-learn (Y/N): ")
-if reg_tool == "Y":
-    reg_tool = True
-else:
-    reg_tool = False
-
-print(reg_tool)
+reg_tool = int(input("Use scikit-learn (1), Tensorflow (2) or own code (3): "))
 
 x_train, y_train = load_training.load_from_xl(file_name, n_feature)
 
@@ -37,12 +32,18 @@ b_norm = 0.0
 
 # normalise features
 tic = time.perf_counter()
-if reg_tool:
-    # reshape to 2D array TODO: may need to also do this for multiple linear regression
-    x_train = x_train.reshape(-1, 1)
+# use scikit-learn
+if reg_tool == 1:
+    # reshape to 2D array TODO: may need to also do this for multiple linear regression and Tf implementation
+    x_train = x_train.reshape(-1, 1)   #what's going on here?
     x_norm = normalise.skl(x_train)
     w_norm, b_norm = regression.skl(x_norm, y_train, tmp_alpha, max_iter)
-else:
+# use Tensorflow
+elif reg_tool == 2:
+   # x_norm, mu_x, sigma_x = normalise.z_score(x_train)
+    w_norm, b_norm = regression.tf(x_train, y_train, tmp_alpha, max_iter)
+# use own code
+elif reg_tool == 3:
     x_norm, mu_x, sigma_x = normalise.z_score(x_train)
     w_norm, b_norm, J_hist, p_hist = regression.gradient_descent(
         x_norm, y_train, w_init, b_init, tmp_alpha, max_iter)
